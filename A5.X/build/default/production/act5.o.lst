@@ -1,0 +1,221 @@
+MPASM 5.67                          ACT5.ASM   5-3-2021  18:40:21         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001     List P=16F84A ; Procesador PIC16f84A
+                      00002     #include "p16f84a.inc" ;Incluye las librerias    
+                      00001         LIST
+                      00002 
+                      00003 ;==========================================================================
+                      00004 ; Build date : Mar 21 2016
+                      00005 ;  MPASM PIC16F84A processor include
+                      00006 ; 
+                      00007 ;  (c) Copyright 1999-2016 Microchip Technology, All rights reserved
+                      00008 ;==========================================================================
+                      00009 
+                      00209         LIST
+                      00003     ; CONFIGURACION DEL PIC16F84A
+2007   3FF1           00004         __CONFIG _FOSC_XT & _WDTE_OFF & _PWRTE_ON & _CP_OFF
+                      00005     ;Variables
+                      00006     CBLOCK   0X0C       ;RAM USUARIOS
+                      00007     ENDC      
+                      00008     ;CODIGO
+0000                  00009         ORG         0
+Warning[207]: Found label after column 1. (INICIO)
+0000                  00010     INICIO
+0000   1683           00011         bsf         STATUS,RP0
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0001   0186           00012         clrf    TRISB   ;PORTB todo como salida
+0002   301F           00013         movlw   b'00011111'
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0003   0085           00014         movwf   TRISA   ; PORTA todo como entrada
+0004   1283           00015         bcf         STATUS,RP0
+Warning[207]: Found label after column 1. (START)
+0005                  00016     START
+0005   1786           00017         bsf         PORTB,7
+0006   2008           00018         call    RETARDO_5ms
+0007   2805           00019         goto    START
+                      00020     CBLOCK 
+  0000000C            00021         Contador
+  0000000D            00022         Contador_2
+  0000000E            00023         Contador_3
+                      00024     ENDC
+                      00025      
+Warning[207]: Found label after column 1. (RETARDO_5ms)
+0008                  00026     RETARDO_5ms             ; subrutina con el retardo de 5ms   
+0008   3020           00027         movlw   d'32'           ; x             
+0009   280A           00028         goto    Retardos_ms     
+Warning[207]: Found label after column 1. (Retardos_ms)
+000A                  00029     Retardos_ms   
+000A   008D           00030         movwf   Contador_2      
+000B   0000           00031         nop
+Warning[207]: Found label after column 1. (Regresa_Cuenta_2)
+000C                  00032     Regresa_Cuenta_2
+000C   3026           00033         movlw   d'38'           ; y              
+000D   008C           00034         movwf   Contador                        
+Warning[207]: Found label after column 1. (Regresa_Cuenta)
+000E                  00035     Regresa_Cuenta
+MPASM 5.67                          ACT5.ASM   5-3-2021  18:40:21         PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+000E   0000           00036         nop                             
+000F   0B8C           00037         decfsz  Contador,F              
+0010   280E           00038         goto    Regresa_Cuenta          
+0011   0B8D           00039         decfsz  Contador_2,F            
+0012   280C           00040         goto    Regresa_Cuenta_2                
+0013   0008           00041         return    
+                      00042     ; 2cm + 2cm + 2cm + (2+ 4x + 4xy) -> x=32 y=38
+                      00043         
+                      00044     ;6 + (2 + 4*32 + 4*32*38) = 
+                      00045     ;6 + (2 + 128 + 4864) =
+                      00046     ;6 + (4994) =
+                      00047     ;= 5000 us = 5 ms
+                      00048     END
+MPASM 5.67                          ACT5.ASM   5-3-2021  18:40:21         PAGE  3
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+C                                 00000000
+Contador                          0000000C
+Contador_2                        0000000D
+Contador_3                        0000000E
+DC                                00000001
+EEADR                             00000009
+EECON1                            00000088
+EECON2                            00000089
+EEDATA                            00000008
+EEIE                              00000006
+EEIF                              00000004
+F                                 00000001
+FSR                               00000004
+GIE                               00000007
+INDF                              00000000
+INICIO                            00000000
+INTCON                            0000000B
+INTE                              00000004
+INTEDG                            00000006
+INTF                              00000001
+IRP                               00000007
+NOT_PD                            00000003
+NOT_RBPU                          00000007
+NOT_TO                            00000004
+OPTION_REG                        00000081
+PCL                               00000002
+PCLATH                            0000000A
+PORTA                             00000005
+PORTB                             00000006
+PS0                               00000000
+PS1                               00000001
+PS2                               00000002
+PSA                               00000003
+RA0                               00000000
+RA1                               00000001
+RA2                               00000002
+RA3                               00000003
+RA4                               00000004
+RB0                               00000000
+RB1                               00000001
+RB2                               00000002
+RB3                               00000003
+RB4                               00000004
+RB5                               00000005
+RB6                               00000006
+RB7                               00000007
+RBIE                              00000003
+RBIF                              00000000
+RD                                00000000
+RETARDO_5ms                       00000008
+RP0                               00000005
+RP1                               00000006
+Regresa_Cuenta                    0000000E
+MPASM 5.67                          ACT5.ASM   5-3-2021  18:40:21         PAGE  4
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+Regresa_Cuenta_2                  0000000C
+Retardos_ms                       0000000A
+START                             00000005
+STATUS                            00000003
+T0CS                              00000005
+T0IE                              00000005
+T0IF                              00000002
+T0SE                              00000004
+TMR0                              00000001
+TMR0IE                            00000005
+TMR0IF                            00000002
+TRISA                             00000085
+TRISA0                            00000000
+TRISA1                            00000001
+TRISA2                            00000002
+TRISA3                            00000003
+TRISA4                            00000004
+TRISB                             00000086
+TRISB0                            00000000
+TRISB1                            00000001
+TRISB2                            00000002
+TRISB3                            00000003
+TRISB4                            00000004
+TRISB5                            00000005
+TRISB6                            00000006
+TRISB7                            00000007
+W                                 00000000
+WR                                00000001
+WREN                              00000002
+WRERR                             00000003
+Z                                 00000002
+_CONFIG                           00002007
+_CP_OFF                           00003FFF
+_CP_ON                            0000000F
+_DEVID1                           00002006
+_FOSC_EXTRC                       00003FFF
+_FOSC_HS                          00003FFE
+_FOSC_LP                          00003FFC
+_FOSC_XT                          00003FFD
+_HS_OSC                           00003FFE
+_IDLOC0                           00002000
+_IDLOC1                           00002001
+_IDLOC2                           00002002
+_IDLOC3                           00002003
+_LP_OSC                           00003FFC
+_PWRTE_OFF                        00003FFF
+_PWRTE_ON                         00003FF7
+_RC_OSC                           00003FFF
+_WDTE_OFF                         00003FFB
+_WDTE_ON                          00003FFF
+_WDT_OFF                          00003FFB
+_WDT_ON                           00003FFF
+_XT_OSC                           00003FFD
+MPASM 5.67                          ACT5.ASM   5-3-2021  18:40:21         PAGE  5
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+__16F84A                          00000001
+
+
+MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
+
+0000 : XXXXXXXXXXXXXXXX XXXX------------ ---------------- ----------------
+2000 : -------X-------- ---------------- ---------------- ----------------
+
+All other memory blocks unused.
+
+Program Memory Words Used:    20
+Program Memory Words Free:  1004
+
+
+Errors   :     0
+Warnings :     6 reported,     0 suppressed
+Messages :     2 reported,     0 suppressed
+
+

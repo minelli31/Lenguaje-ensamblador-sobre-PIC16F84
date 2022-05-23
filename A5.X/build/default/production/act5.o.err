@@ -1,0 +1,8 @@
+Warning[207] C:\USERS\MINEL\MPLABXPROJECTS\A5.X\ACT5.ASM 10 : Found label after column 1. (INICIO)
+Message[302] C:\USERS\MINEL\MPLABXPROJECTS\A5.X\ACT5.ASM 12 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\MINEL\MPLABXPROJECTS\A5.X\ACT5.ASM 14 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[207] C:\USERS\MINEL\MPLABXPROJECTS\A5.X\ACT5.ASM 16 : Found label after column 1. (START)
+Warning[207] C:\USERS\MINEL\MPLABXPROJECTS\A5.X\ACT5.ASM 26 : Found label after column 1. (RETARDO_5ms)
+Warning[207] C:\USERS\MINEL\MPLABXPROJECTS\A5.X\ACT5.ASM 29 : Found label after column 1. (Retardos_ms)
+Warning[207] C:\USERS\MINEL\MPLABXPROJECTS\A5.X\ACT5.ASM 32 : Found label after column 1. (Regresa_Cuenta_2)
+Warning[207] C:\USERS\MINEL\MPLABXPROJECTS\A5.X\ACT5.ASM 35 : Found label after column 1. (Regresa_Cuenta)

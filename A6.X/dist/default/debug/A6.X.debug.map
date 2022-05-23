@@ -1,0 +1,50 @@
+MPLINK 5.08, LINKER
+Linker Map File - Created Mon May 03 19:01:14 2021
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000000
+                   .org_1       code   0x000000    program   0x000002
+                   .org_2       code   0x000005    program   0x000054
+      .config_2007_ACT6.O       code   0x002007    program   0x000002
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000000      
+                            0x000005    0x00002e      
+                            0x002007    0x002007      
+            44 out of 1094 program addresses used, program memory utilization is 4%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                   INICIO   0x000005    program     static C:\Users\minel\MPLABXProjects\A6.X\act6.asm
+                    bucle   0x000026    program     static C:\Users\minel\MPLABXProjects\A6.X\act6.asm
+                   dormir   0x00002e    program     static C:\Users\minel\MPLABXProjects\A6.X\act6.asm
+              leerNumeros   0x000011    program     static C:\Users\minel\MPLABXProjects\A6.X\act6.asm
+               multiplica   0x000021    program     static C:\Users\minel\MPLABXProjects\A6.X\act6.asm
+                  numeroA   0x00000b    program     static C:\Users\minel\MPLABXProjects\A6.X\act6.asm
+                  numeroB   0x00000e    program     static C:\Users\minel\MPLABXProjects\A6.X\act6.asm
+                    resto   0x00002b    program     static C:\Users\minel\MPLABXProjects\A6.X\act6.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                   INICIO   0x000005    program     static C:\Users\minel\MPLABXProjects\A6.X\act6.asm
+                  numeroA   0x00000b    program     static C:\Users\minel\MPLABXProjects\A6.X\act6.asm
+                  numeroB   0x00000e    program     static C:\Users\minel\MPLABXProjects\A6.X\act6.asm
+              leerNumeros   0x000011    program     static C:\Users\minel\MPLABXProjects\A6.X\act6.asm
+               multiplica   0x000021    program     static C:\Users\minel\MPLABXProjects\A6.X\act6.asm
+                    bucle   0x000026    program     static C:\Users\minel\MPLABXProjects\A6.X\act6.asm
+                    resto   0x00002b    program     static C:\Users\minel\MPLABXProjects\A6.X\act6.asm
+                   dormir   0x00002e    program     static C:\Users\minel\MPLABXProjects\A6.X\act6.asm
+
+

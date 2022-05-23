@@ -1,0 +1,16 @@
+Warning[207] C:\USERS\MINEL\MPLABXPROJECTS\A6.X\ACT6.ASM 4 : Found label after column 1. (NumA)
+Warning[207] C:\USERS\MINEL\MPLABXPROJECTS\A6.X\ACT6.ASM 5 : Found label after column 1. (NumB)
+Warning[207] C:\USERS\MINEL\MPLABXPROJECTS\A6.X\ACT6.ASM 7 : Found label after column 1. (DH)
+Warning[207] C:\USERS\MINEL\MPLABXPROJECTS\A6.X\ACT6.ASM 8 : Found label after column 1. (DL)
+Warning[207] C:\USERS\MINEL\MPLABXPROJECTS\A6.X\ACT6.ASM 10 : Found label after column 1. (NumT)
+Warning[207] C:\USERS\MINEL\MPLABXPROJECTS\A6.X\ACT6.ASM 11 : Found label after column 1. (k)
+Warning[207] C:\USERS\MINEL\MPLABXPROJECTS\A6.X\ACT6.ASM 15 : Found label after column 1. (INICIO)
+Message[302] C:\USERS\MINEL\MPLABXPROJECTS\A6.X\ACT6.ASM 17 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\MINEL\MPLABXPROJECTS\A6.X\ACT6.ASM 19 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[207] C:\USERS\MINEL\MPLABXPROJECTS\A6.X\ACT6.ASM 22 : Found label after column 1. (numeroA)
+Warning[207] C:\USERS\MINEL\MPLABXPROJECTS\A6.X\ACT6.ASM 26 : Found label after column 1. (numeroB)
+Warning[207] C:\USERS\MINEL\MPLABXPROJECTS\A6.X\ACT6.ASM 30 : Found label after column 1. (leerNumeros)
+Warning[207] C:\USERS\MINEL\MPLABXPROJECTS\A6.X\ACT6.ASM 49 : Found label after column 1. (multiplica)
+Warning[207] C:\USERS\MINEL\MPLABXPROJECTS\A6.X\ACT6.ASM 55 : Found label after column 1. (bucle)
+Warning[207] C:\USERS\MINEL\MPLABXPROJECTS\A6.X\ACT6.ASM 61 : Found label after column 1. (resto)
+Warning[207] C:\USERS\MINEL\MPLABXPROJECTS\A6.X\ACT6.ASM 65 : Found label after column 1. (dormir)

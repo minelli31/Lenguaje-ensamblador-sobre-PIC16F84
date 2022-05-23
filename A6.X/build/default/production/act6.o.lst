@@ -1,0 +1,257 @@
+MPASM 5.67                          ACT6.ASM   5-3-2021  19:01:10         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001     List P=16F84A ; Procesador PIC16f84A
+                      00002     #include "p16f84a.inc" ;Incluye las librerias    
+                      00001         LIST
+                      00002 
+                      00003 ;==========================================================================
+                      00004 ; Build date : Mar 21 2016
+                      00005 ;  MPASM PIC16F84A processor include
+                      00006 ; 
+                      00007 ;  (c) Copyright 1999-2016 Microchip Technology, All rights reserved
+                      00008 ;==========================================================================
+                      00009 
+                      00209         LIST
+2007   3FF1           00003         __CONFIG _FOSC_XT & _WDTE_OFF & _PWRTE_ON & _CP_OFF
+Warning[207]: Found label after column 1. (NumA)
+  0000000C            00004     NumA     equ     0x0C               ;dato a sumar
+Warning[207]: Found label after column 1. (NumB)
+  0000000D            00005     NumB     equ     0x0D               ;veces a sumar
+                      00006     
+Warning[207]: Found label after column 1. (DH)
+  0000000E            00007     DH        equ     0x0E              ;byte alto
+Warning[207]: Found label after column 1. (DL)
+  0000000F            00008     DL        equ     0x0F              ;byte bajo
+                      00009         
+Warning[207]: Found label after column 1. (NumT)
+  00000010            00010     NumT     equ     0x10               ;test
+Warning[207]: Found label after column 1. (k)
+  0000000F            00011     k        equ     0x0F               ;test
+0000                  00012         org     00h                     ;Vector de Reset
+0000   2805           00013         goto     INICIO         
+0005                  00014         org     0x05                    ;Vector de interrupcion
+Warning[207]: Found label after column 1. (INICIO)
+0005                  00015     INICIO    
+0005   1683           00016         bsf         STATUS,RP0
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0006   0186           00017         clrf    TRISB               ;PORTB todo como salida
+0007   301F           00018         movlw   b'00011111'
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0008   0085           00019         movwf   TRISA               ;PORTA todo como entrada
+0009   1283           00020         bcf         STATUS,RP0
+000A   2011           00021         call leerNumeros
+Warning[207]: Found label after column 1. (numeroA)
+000B                  00022     numeroA
+000B   390F           00023         andlw   k
+000C   008C           00024         movwf   NumA                ;multiplicando
+000D   0008           00025         return
+Warning[207]: Found label after column 1. (numeroB)
+000E                  00026     numeroB   
+000E   390F           00027         andlw   k
+000F   008D           00028         movwf   NumB                ;multiplicador
+0010   0008           00029         return
+Warning[207]: Found label after column 1. (leerNumeros)
+0011                  00030     leerNumeros
+0011   0805           00031         movf    PORTA,W  
+MPASM 5.67                          ACT6.ASM   5-3-2021  19:01:10         PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00032         ;movlw   b'00010011'        
+0012   0090           00033         movwf   NumT    
+0013   1A10           00034         btfsc   NumT,4              ;Si tenemos un 1 en el bit 4 la siguiente instruccion se ejecuta y e
+                            s el numero A
+0014   200B           00035         call    numeroA
+0015   1E10           00036         btfss   NumT,4              ;Si tenemos un 0 en el bit 4 la siguiente instruccion se ejecuta y e
+                            s el numero B
+0016   200E           00037         call    numeroB
+0017   0805           00038         movf    PORTA,W  
+                      00039         ;movlw   b'00000111'
+0018   0090           00040         movwf   NumT    
+0019   1A10           00041         btfsc   NumT,4              ;Si tenemos un 1 en el bit 4 la siguiente instruccion se ejecuta y e
+                            s el numero A
+001A   200B           00042         call    numeroA
+001B   1E10           00043         btfss   NumT,4              ;Si tenemos un 0 en el bit 4 la siguiente instruccion se ejecuta y e
+                            s el numero B
+001C   200E           00044         call    numeroB
+001D   2021           00045         call    multiplica              ;subrutina
+001E   080F           00046         movf    DL,W
+001F   0086           00047         movwf   PORTB               ;mostramos el resultado en el puerto B
+0020   282E           00048         goto    dormir                  ;hemos acabado
+Warning[207]: Found label after column 1. (multiplica)
+0021                  00049     multiplica
+0021   018E           00050         clrf    DH
+0022   018F           00051         clrf    DL
+0023   080D           00052         movf    NumB,W              ;W = multiplicador
+0024   1903           00053         btfsc   STATUS,Z                ;Salta si Z=1
+0025   282E           00054         goto    dormir                  ;Z=0 multiplicador=0
+Warning[207]: Found label after column 1. (bucle)
+0026                  00055     bucle
+0026   080F           00056         movf    DL,W                    ;W=DL
+0027   070C           00057         addwf   NumA,W              ;W += multiplicando
+0028   008F           00058         movwf   DL                      ;DL=W
+0029   1803           00059         btfsc   STATUS,C                ;Salta si C=0
+002A   0C8E           00060         rrf         DH,F                    ;incf    DH,F
+Warning[207]: Found label after column 1. (resto)
+002B                  00061     resto
+002B   0B8D           00062         decfsz  NumB,F              ;multiplicador-1
+002C   2826           00063         goto    bucle                   ;no hemos acabado
+002D   0008           00064         return                      ;fin subrutina
+Warning[207]: Found label after column 1. (dormir)
+002E                  00065     dormir        
+002E   0063           00066         sleep
+                      00067         end                             ;Fin del programa
+MPASM 5.67                          ACT6.ASM   5-3-2021  19:01:10         PAGE  3
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+C                                 00000000
+DC                                00000001
+DH                                0000000E
+DL                                0000000F
+EEADR                             00000009
+EECON1                            00000088
+EECON2                            00000089
+EEDATA                            00000008
+EEIE                              00000006
+EEIF                              00000004
+F                                 00000001
+FSR                               00000004
+GIE                               00000007
+INDF                              00000000
+INICIO                            00000005
+INTCON                            0000000B
+INTE                              00000004
+INTEDG                            00000006
+INTF                              00000001
+IRP                               00000007
+NOT_PD                            00000003
+NOT_RBPU                          00000007
+NOT_TO                            00000004
+NumA                              0000000C
+NumB                              0000000D
+NumT                              00000010
+OPTION_REG                        00000081
+PCL                               00000002
+PCLATH                            0000000A
+PORTA                             00000005
+PORTB                             00000006
+PS0                               00000000
+PS1                               00000001
+PS2                               00000002
+PSA                               00000003
+RA0                               00000000
+RA1                               00000001
+RA2                               00000002
+RA3                               00000003
+RA4                               00000004
+RB0                               00000000
+RB1                               00000001
+RB2                               00000002
+RB3                               00000003
+RB4                               00000004
+RB5                               00000005
+RB6                               00000006
+RB7                               00000007
+RBIE                              00000003
+RBIF                              00000000
+RD                                00000000
+RP0                               00000005
+RP1                               00000006
+MPASM 5.67                          ACT6.ASM   5-3-2021  19:01:10         PAGE  4
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+STATUS                            00000003
+T0CS                              00000005
+T0IE                              00000005
+T0IF                              00000002
+T0SE                              00000004
+TMR0                              00000001
+TMR0IE                            00000005
+TMR0IF                            00000002
+TRISA                             00000085
+TRISA0                            00000000
+TRISA1                            00000001
+TRISA2                            00000002
+TRISA3                            00000003
+TRISA4                            00000004
+TRISB                             00000086
+TRISB0                            00000000
+TRISB1                            00000001
+TRISB2                            00000002
+TRISB3                            00000003
+TRISB4                            00000004
+TRISB5                            00000005
+TRISB6                            00000006
+TRISB7                            00000007
+W                                 00000000
+WR                                00000001
+WREN                              00000002
+WRERR                             00000003
+Z                                 00000002
+_CONFIG                           00002007
+_CP_OFF                           00003FFF
+_CP_ON                            0000000F
+_DEVID1                           00002006
+_FOSC_EXTRC                       00003FFF
+_FOSC_HS                          00003FFE
+_FOSC_LP                          00003FFC
+_FOSC_XT                          00003FFD
+_HS_OSC                           00003FFE
+_IDLOC0                           00002000
+_IDLOC1                           00002001
+_IDLOC2                           00002002
+_IDLOC3                           00002003
+_LP_OSC                           00003FFC
+_PWRTE_OFF                        00003FFF
+_PWRTE_ON                         00003FF7
+_RC_OSC                           00003FFF
+_WDTE_OFF                         00003FFB
+_WDTE_ON                          00003FFF
+_WDT_OFF                          00003FFB
+_WDT_ON                           00003FFF
+_XT_OSC                           00003FFD
+__16F84A                          00000001
+bucle                             00000026
+dormir                            0000002E
+MPASM 5.67                          ACT6.ASM   5-3-2021  19:01:10         PAGE  5
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+k                                 0000000F
+leerNumeros                       00000011
+multiplica                        00000021
+numeroA                           0000000B
+numeroB                           0000000E
+resto                             0000002B
+
+
+MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
+
+0000 : X----XXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXX- ----------------
+2000 : -------X-------- ---------------- ---------------- ----------------
+
+All other memory blocks unused.
+
+Program Memory Words Used:    43
+Program Memory Words Free:   981
+
+
+Errors   :     0
+Warnings :    14 reported,     0 suppressed
+Messages :     2 reported,     0 suppressed
+
+

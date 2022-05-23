@@ -1,0 +1,44 @@
+MPLINK 5.08, LINKER
+Linker Map File - Created Mon May 03 18:40:22 2021
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000000
+                   .org_1       code   0x000000    program   0x000028
+      .config_2007_ACT5.O       code   0x002007    program   0x000002
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000013      
+                            0x002007    0x002007      
+            21 out of 1094 program addresses used, program memory utilization is 1%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                   INICIO   0x000000    program     static C:\Users\minel\MPLABXProjects\A5.X\act5.asm
+              RETARDO_5ms   0x000008    program     static C:\Users\minel\MPLABXProjects\A5.X\act5.asm
+           Regresa_Cuenta   0x00000e    program     static C:\Users\minel\MPLABXProjects\A5.X\act5.asm
+         Regresa_Cuenta_2   0x00000c    program     static C:\Users\minel\MPLABXProjects\A5.X\act5.asm
+              Retardos_ms   0x00000a    program     static C:\Users\minel\MPLABXProjects\A5.X\act5.asm
+                    START   0x000005    program     static C:\Users\minel\MPLABXProjects\A5.X\act5.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                   INICIO   0x000000    program     static C:\Users\minel\MPLABXProjects\A5.X\act5.asm
+                    START   0x000005    program     static C:\Users\minel\MPLABXProjects\A5.X\act5.asm
+              RETARDO_5ms   0x000008    program     static C:\Users\minel\MPLABXProjects\A5.X\act5.asm
+              Retardos_ms   0x00000a    program     static C:\Users\minel\MPLABXProjects\A5.X\act5.asm
+         Regresa_Cuenta_2   0x00000c    program     static C:\Users\minel\MPLABXProjects\A5.X\act5.asm
+           Regresa_Cuenta   0x00000e    program     static C:\Users\minel\MPLABXProjects\A5.X\act5.asm
+
+
