@@ -1,0 +1,6 @@
+Warning[207] C:\USERS\MINEL\MPLABXPROJECTS\A9.X\ACT9.ASM 22 : Found label after column 1. (INICIO)
+Message[302] C:\USERS\MINEL\MPLABXPROJECTS\A9.X\ACT9.ASM 25 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[207] C:\USERS\MINEL\MPLABXPROJECTS\A9.X\ACT9.ASM 29 : Found label after column 1. (START)
+Warning[207] C:\USERS\MINEL\MPLABXPROJECTS\A9.X\ACT9.ASM 34 : Found label after column 1. (Retcs)
+Warning[207] C:\USERS\MINEL\MPLABXPROJECTS\A9.X\ACT9.ASM 38 : Found label after column 1. (Timer0_Desbordamiento)
+Warning[207] C:\USERS\MINEL\MPLABXPROJECTS\A9.X\ACT9.ASM 41 : Found label after column 1. (RetNcs)

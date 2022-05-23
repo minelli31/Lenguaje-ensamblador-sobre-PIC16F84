@@ -1,0 +1,223 @@
+MPASM 5.67                         ACT10.ASM   5-4-2021  19:01:26         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+2007   3FF1           00001    __CONFIG _CP_OFF & _WDT_OFF & _PWRTE_ON & _XT_OSC   ;Config
+                      00002 
+                      00003    LIST   P=16F84A   ;Procesador
+                      00004    INCLUDE   <P16F84A.INC>   ;Fichero con las etiquetas
+                      00001         LIST
+                      00002 
+                      00003 ;==========================================================================
+                      00004 ; Build date : Mar 21 2016
+                      00005 ;  MPASM PIC16F84A processor include
+                      00006 ; 
+                      00007 ;  (c) Copyright 1999-2016 Microchip Technology, All rights reserved
+                      00008 ;==========================================================================
+                      00009 
+                      00209         LIST
+                      00005    
+Warning[205]: Found directive in column 1. (CBLOCK)
+                      00006 CBLOCK 0x0C         ;Bloque de variables asignadas a partir de 0x0C
+  0000000C            00007     Segundos         ;Variable de segundos
+  0000000D            00008     Periodo_10ms
+Warning[205]: Found directive in column 1. (ENDC)
+                      00009 ENDC         
+                      00010 ;--------------------------------------Zona de codigos----------------------------------------
+Warning[207]: Found label after column 1. (RESET)
+0000                  00011     RESET           
+0000                  00012     ORG     0x00                ; Aquí comienza el micro.
+0000   2805           00013     GOTO    Inicio              ; Salto a inicio de mi programa.
+                      00014 ;**** Vector de Interrupcion ****
+0004                  00015     ORG     0x04                ; Atiendo Interrupcion.
+0004   2811           00016     GOTO    RetNcs 
+0005                  00017 Inicio
+0005   3000           00018     MOVLW   0x00   ;Carga 0 en W
+0006   1683           00019     BSF     STATUS,RP0   ;Acceso al banco 1
+0007   3000           00020     MOVLW   b'00000000' ;Valor para configurar los puertos (todos como salida) copiado al W
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0008   0086           00021     MOVWF   TRISB           ;Fija PORTB<0:7> como salidas
+0009   301F           00022     MOVLW   b'00011111'
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+000A   0085           00023     MOVWF   TRISA   
+000B   3007           00024     MOVLW   b'00000111'     ; Se selecciona TMR0 modo temporizador y preescaler de 1/256.
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+000C   0081           00025     MOVWF   OPTION_REG
+000D   1283           00026     BCF     STATUS,RP0   ;Vuelve al banco 0 
+000E                  00027 Bucle  
+000E   2011           00028     CALL   RetNcs           ; Retardo de 1 segundo
+000F   2017           00029     CALL   Contador   ; Incrementar contador
+0010   280E           00030     GOTO   Bucle
+                      00031 ;-------------------------Contador de segundos---------------------------- 
+0011                  00032 RetNcs
+0011   3000           00033     MOVLW   0x00   ;Carga 0 en W
+0012   0081           00034     MOVWF   TMR0   ;Carga el TMR0 con 0x00
+0013   110B           00035     BCF     INTCON,T0IF   ;Resetea el flag de desbordamiento del TMR0 
+0014                  00036 Timer0_Desborde
+0014   1D0B           00037     BTFSS   INTCON,T0IF   ;Salta si se desborda el TMR0
+MPASM 5.67                         ACT10.ASM   5-4-2021  19:01:26         PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0015   2814           00038     GOTO    Timer0_Desborde   ;Repite la subrutina porque no hubo overflow
+0016   0008           00039     RETURN      ;Return para volver
+                      00040 ;------------------------Actualizador de segundos--------------------------  
+0017                  00041 Contador  
+Message[305]: Using default destination of 1 (file).
+0017   0A8C           00042     INCF    Segundos   ;Incrementa en 1 el contador de segundos
+0018   080C           00043     MOVF    Segundos,W
+0019   0086           00044     MOVWF   PORTB
+001A   303C           00045     MOVLW   d'60'   ;Pone d60 en W
+001B   020C           00046     SUBWF   Segundos,W   ;Resta Segundos - W y lo guarda en W
+001C   1903           00047     BTFSC   STATUS,Z   ;Salta si Z=0, porque el segundero no llego a 60
+001D   0008           00048     RETURN      ;Vuelve
+                      00049 
+                      00050     END      ;Fin del programa
+MPASM 5.67                         ACT10.ASM   5-4-2021  19:01:26         PAGE  3
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+Bucle                             0000000E
+C                                 00000000
+Contador                          00000017
+DC                                00000001
+EEADR                             00000009
+EECON1                            00000088
+EECON2                            00000089
+EEDATA                            00000008
+EEIE                              00000006
+EEIF                              00000004
+F                                 00000001
+FSR                               00000004
+GIE                               00000007
+INDF                              00000000
+INTCON                            0000000B
+INTE                              00000004
+INTEDG                            00000006
+INTF                              00000001
+IRP                               00000007
+Inicio                            00000005
+NOT_PD                            00000003
+NOT_RBPU                          00000007
+NOT_TO                            00000004
+OPTION_REG                        00000081
+PCL                               00000002
+PCLATH                            0000000A
+PORTA                             00000005
+PORTB                             00000006
+PS0                               00000000
+PS1                               00000001
+PS2                               00000002
+PSA                               00000003
+Periodo_10ms                      0000000D
+RA0                               00000000
+RA1                               00000001
+RA2                               00000002
+RA3                               00000003
+RA4                               00000004
+RB0                               00000000
+RB1                               00000001
+RB2                               00000002
+RB3                               00000003
+RB4                               00000004
+RB5                               00000005
+RB6                               00000006
+RB7                               00000007
+RBIE                              00000003
+RBIF                              00000000
+RD                                00000000
+RESET                             00000000
+RP0                               00000005
+RP1                               00000006
+RetNcs                            00000011
+MPASM 5.67                         ACT10.ASM   5-4-2021  19:01:26         PAGE  4
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+STATUS                            00000003
+Segundos                          0000000C
+T0CS                              00000005
+T0IE                              00000005
+T0IF                              00000002
+T0SE                              00000004
+TMR0                              00000001
+TMR0IE                            00000005
+TMR0IF                            00000002
+TRISA                             00000085
+TRISA0                            00000000
+TRISA1                            00000001
+TRISA2                            00000002
+TRISA3                            00000003
+TRISA4                            00000004
+TRISB                             00000086
+TRISB0                            00000000
+TRISB1                            00000001
+TRISB2                            00000002
+TRISB3                            00000003
+TRISB4                            00000004
+TRISB5                            00000005
+TRISB6                            00000006
+TRISB7                            00000007
+Timer0_Desborde                   00000014
+W                                 00000000
+WR                                00000001
+WREN                              00000002
+WRERR                             00000003
+Z                                 00000002
+_CONFIG                           00002007
+_CP_OFF                           00003FFF
+_CP_ON                            0000000F
+_DEVID1                           00002006
+_FOSC_EXTRC                       00003FFF
+_FOSC_HS                          00003FFE
+_FOSC_LP                          00003FFC
+_FOSC_XT                          00003FFD
+_HS_OSC                           00003FFE
+_IDLOC0                           00002000
+_IDLOC1                           00002001
+_IDLOC2                           00002002
+_IDLOC3                           00002003
+_LP_OSC                           00003FFC
+_PWRTE_OFF                        00003FFF
+_PWRTE_ON                         00003FF7
+_RC_OSC                           00003FFF
+_WDTE_OFF                         00003FFB
+_WDTE_ON                          00003FFF
+_WDT_OFF                          00003FFB
+_WDT_ON                           00003FFF
+_XT_OSC                           00003FFD
+__16F84A                          00000001
+MPASM 5.67                         ACT10.ASM   5-4-2021  19:01:26         PAGE  5
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+__DEBUG                           
+__MPLAB_DEBUGGER_SIMULATOR        1
+
+
+MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
+
+0000 : X---XXXXXXXXXXXX XXXXXXXXXXXXXX-- ---------------- ----------------
+2000 : -------X-------- ---------------- ---------------- ----------------
+
+All other memory blocks unused.
+
+Program Memory Words Used:    27
+Program Memory Words Free:   997
+
+
+Errors   :     0
+Warnings :     3 reported,     0 suppressed
+Messages :     4 reported,     0 suppressed
+
+

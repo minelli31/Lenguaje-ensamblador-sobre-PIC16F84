@@ -1,0 +1,46 @@
+MPLINK 5.08, LINKER
+Linker Map File - Created Tue May 04 19:01:23 2021
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000000
+                   .org_1       code   0x000000    program   0x000002
+                   .org_2       code   0x000004    program   0x000034
+     .config_2007_ACT10.O       code   0x002007    program   0x000002
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000000      
+                            0x000004    0x00001d      
+                            0x002007    0x002007      
+            28 out of 1094 program addresses used, program memory utilization is 2%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                    Bucle   0x00000e    program     static C:\Users\minel\MPLABXProjects\A10.X\act10.asm
+                 Contador   0x000017    program     static C:\Users\minel\MPLABXProjects\A10.X\act10.asm
+                   Inicio   0x000005    program     static C:\Users\minel\MPLABXProjects\A10.X\act10.asm
+                    RESET   0x000000    program     static C:\Users\minel\MPLABXProjects\A10.X\act10.asm
+                   RetNcs   0x000011    program     static C:\Users\minel\MPLABXProjects\A10.X\act10.asm
+          Timer0_Desborde   0x000014    program     static C:\Users\minel\MPLABXProjects\A10.X\act10.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                    RESET   0x000000    program     static C:\Users\minel\MPLABXProjects\A10.X\act10.asm
+                   Inicio   0x000005    program     static C:\Users\minel\MPLABXProjects\A10.X\act10.asm
+                    Bucle   0x00000e    program     static C:\Users\minel\MPLABXProjects\A10.X\act10.asm
+                   RetNcs   0x000011    program     static C:\Users\minel\MPLABXProjects\A10.X\act10.asm
+          Timer0_Desborde   0x000014    program     static C:\Users\minel\MPLABXProjects\A10.X\act10.asm
+                 Contador   0x000017    program     static C:\Users\minel\MPLABXProjects\A10.X\act10.asm
+
+
