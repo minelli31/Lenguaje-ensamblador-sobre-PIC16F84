@@ -15,13 +15,19 @@ En la Edad Media, cuando la Tierra aún se estaba enfriando, antes de los proces
 
 Los programas desarrolados en este proyecto contienen los siguientes tópicos:
 
-Introducción al PIC16F84A 
-Puertos de entrega/salida 
-Subrutinas 
-Multiplicación de números de 8 bits 
-Temporizadores
-Interrupciones
-Control PID con el PIC16F84A
+    *Introducción al PIC16F84A 
+
+    *Puertos de entrega/salida 
+
+    *Subrutinas 
+
+    *Multiplicación de números de 8 bits 
+
+    *Temporizadores
+
+    *Interrupciones
+
+    *Control PID con el PIC16F84A
 
 Para los amantes de la programación hardware. Espero que disfrutéis del contenido que es muy interesante. He aprendido y disfrutado mucho durante el desarrollo de estos códigos.
 
