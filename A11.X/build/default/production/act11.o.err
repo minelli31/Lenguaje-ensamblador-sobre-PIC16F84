@@ -1,0 +1,7 @@
+Warning[207] C:\USERS\MINEL\MPLABXPROJECTS\A11.X\ACT11.ASM 19 : Found label after column 1. (INICIO)
+Message[302] C:\USERS\MINEL\MPLABXPROJECTS\A11.X\ACT11.ASM 23 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[207] C:\USERS\MINEL\MPLABXPROJECTS\A11.X\ACT11.ASM 29 : Found label after column 1. (BUCLE)
+Message[305] C:\USERS\MINEL\MPLABXPROJECTS\A11.X\ACT11.ASM 30 : Using default destination of 1 (file).
+Warning[207] C:\USERS\MINEL\MPLABXPROJECTS\A11.X\ACT11.ASM 33 : Found label after column 1. (INT1CS)
+Message[305] C:\USERS\MINEL\MPLABXPROJECTS\A11.X\ACT11.ASM 36 : Using default destination of 1 (file).
+Warning[207] C:\USERS\MINEL\MPLABXPROJECTS\A11.X\ACT11.ASM 38 : Found label after column 1. (FIN_INT)

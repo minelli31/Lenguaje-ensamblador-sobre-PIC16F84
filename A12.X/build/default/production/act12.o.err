@@ -1,0 +1,6 @@
+Warning[207] C:\USERS\MINEL\MPLABXPROJECTS\A12.X\ACT12.ASM 18 : Found label after column 1. (INICIO)
+Message[302] C:\USERS\MINEL\MPLABXPROJECTS\A12.X\ACT12.ASM 21 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[207] C:\USERS\MINEL\MPLABXPROJECTS\A12.X\ACT12.ASM 29 : Found label after column 1. (BUCLE)
+Warning[207] C:\USERS\MINEL\MPLABXPROJECTS\A12.X\ACT12.ASM 34 : Found label after column 1. (RTINCS)
+Warning[207] C:\USERS\MINEL\MPLABXPROJECTS\A12.X\ACT12.ASM 41 : Found label after column 1. (INT1CS)
+Warning[207] C:\USERS\MINEL\MPLABXPROJECTS\A12.X\ACT12.ASM 45 : Found label after column 1. (FIN_INT)

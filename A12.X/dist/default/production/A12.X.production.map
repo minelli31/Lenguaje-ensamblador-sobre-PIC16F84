@@ -1,0 +1,44 @@
+MPLINK 5.08, LINKER
+Linker Map File - Created Tue May 04 19:40:10 2021
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000000
+                   .org_1       code   0x000000    program   0x000002
+                   .org_2       code   0x000004    program   0x000032
+     .config_2007_ACT12.O       code   0x002007    program   0x000002
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000000      
+                            0x000004    0x00001c      
+                            0x002007    0x002007      
+            27 out of 1094 program addresses used, program memory utilization is 2%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                    BUCLE   0x00000f    program     static C:\Users\minel\MPLABXProjects\A12.X\act12.asm
+                  FIN_INT   0x00001b    program     static C:\Users\minel\MPLABXProjects\A12.X\act12.asm
+                   INICIO   0x000005    program     static C:\Users\minel\MPLABXProjects\A12.X\act12.asm
+                   INT1CS   0x000018    program     static C:\Users\minel\MPLABXProjects\A12.X\act12.asm
+                   RTINCS   0x000012    program     static C:\Users\minel\MPLABXProjects\A12.X\act12.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                   INICIO   0x000005    program     static C:\Users\minel\MPLABXProjects\A12.X\act12.asm
+                    BUCLE   0x00000f    program     static C:\Users\minel\MPLABXProjects\A12.X\act12.asm
+                   RTINCS   0x000012    program     static C:\Users\minel\MPLABXProjects\A12.X\act12.asm
+                   INT1CS   0x000018    program     static C:\Users\minel\MPLABXProjects\A12.X\act12.asm
+                  FIN_INT   0x00001b    program     static C:\Users\minel\MPLABXProjects\A12.X\act12.asm
+
+

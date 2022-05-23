@@ -1,0 +1,14 @@
+Warning[207] C:\USERS\MINEL\MPLABXPROJECTS\A13.X\ACT13.ASM 25 : Found label after column 1. (FLAGNCS_PORTB)
+Message[305] C:\USERS\MINEL\MPLABXPROJECTS\A13.X\ACT13.ASM 27 : Using default destination of 1 (file).
+Warning[207] C:\USERS\MINEL\MPLABXPROJECTS\A13.X\ACT13.ASM 29 : Found label after column 1. (FLAGNCS_1)
+Warning[207] C:\USERS\MINEL\MPLABXPROJECTS\A13.X\ACT13.ASM 33 : Found label after column 1. (MULTIPLICA)
+Warning[207] C:\USERS\MINEL\MPLABXPROJECTS\A13.X\ACT13.ASM 40 : Found label after column 1. (BUCLE_MULTIPLICA)
+Warning[207] C:\USERS\MINEL\MPLABXPROJECTS\A13.X\ACT13.ASM 46 : Found label after column 1. (RESTO)
+Warning[207] C:\USERS\MINEL\MPLABXPROJECTS\A13.X\ACT13.ASM 50 : Found label after column 1. (INICIO)
+Message[302] C:\USERS\MINEL\MPLABXPROJECTS\A13.X\ACT13.ASM 53 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\MINEL\MPLABXPROJECTS\A13.X\ACT13.ASM 55 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\MINEL\MPLABXPROJECTS\A13.X\ACT13.ASM 57 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[207] C:\USERS\MINEL\MPLABXPROJECTS\A13.X\ACT13.ASM 70 : Found label after column 1. (BUCLE)
+Warning[207] C:\USERS\MINEL\MPLABXPROJECTS\A13.X\ACT13.ASM 76 : Found label after column 1. (INT1CS)
+Warning[207] C:\USERS\MINEL\MPLABXPROJECTS\A13.X\ACT13.ASM 81 : Found label after column 1. (RTINCS)
+Warning[207] C:\USERS\MINEL\MPLABXPROJECTS\A13.X\ACT13.ASM 93 : Found label after column 1. (FIN_RTINCS)
