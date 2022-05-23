@@ -1,0 +1,76 @@
+MPLINK 5.08, LINKER
+Linker Map File - Created Tue May 04 20:05:23 2021
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000000
+                   .org_2       code   0x000000    program   0x000002
+                   .org_3       code   0x000004    program   0x0001b0
+     .config_2007_ACT14.O       code   0x002007    program   0x000002
+                   .org_1       code   0x002100    program   0x000002
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000000      
+                            0x000004    0x0000db      
+                            0x002007    0x002007      
+                            0x002100    0x002100      
+            219 out of 1094 program addresses used, program memory utilization is 20%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                    BUCLE   0x0000d1    program     static C:\Users\minel\MPLABXProjects\A14.X\act14.asm
+              CONTROLADOR   0x000093    program     static C:\Users\minel\MPLABXProjects\A14.X\act14.asm
+                      FIN   0x00007b    program     static C:\Users\minel\MPLABXProjects\A14.X\act14.asm
+                    FLAG1   0x000053    program     static C:\Users\minel\MPLABXProjects\A14.X\act14.asm
+                    FLAG2   0x000058    program     static C:\Users\minel\MPLABXProjects\A14.X\act14.asm
+                    FLAG3   0x00005d    program     static C:\Users\minel\MPLABXProjects\A14.X\act14.asm
+                    FLAG4   0x000062    program     static C:\Users\minel\MPLABXProjects\A14.X\act14.asm
+                    FLAG5   0x000067    program     static C:\Users\minel\MPLABXProjects\A14.X\act14.asm
+                    FLAG6   0x00006c    program     static C:\Users\minel\MPLABXProjects\A14.X\act14.asm
+                    FLAG7   0x000071    program     static C:\Users\minel\MPLABXProjects\A14.X\act14.asm
+                    FLAG8   0x000076    program     static C:\Users\minel\MPLABXProjects\A14.X\act14.asm
+                  GUARDAR   0x0000b5    program     static C:\Users\minel\MPLABXProjects\A14.X\act14.asm
+                   INICIO   0x000005    program     static C:\Users\minel\MPLABXProjects\A14.X\act14.asm
+                INT_Timer   0x000021    program     static C:\Users\minel\MPLABXProjects\A14.X\act14.asm
+                 LECTURAS   0x000036    program     static C:\Users\minel\MPLABXProjects\A14.X\act14.asm
+           MEDIDAFILTRADA   0x00007c    program     static C:\Users\minel\MPLABXProjects\A14.X\act14.asm
+               MULTIPLICA   0x0000c9    program     static C:\Users\minel\MPLABXProjects\A14.X\act14.asm
+                PRINCIPAL   0x00001e    program     static C:\Users\minel\MPLABXProjects\A14.X\act14.asm
+                     SIGO   0x00002e    program     static C:\Users\minel\MPLABXProjects\A14.X\act14.asm
+                  TERMINA   0x0000c1    program     static C:\Users\minel\MPLABXProjects\A14.X\act14.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                   INICIO   0x000005    program     static C:\Users\minel\MPLABXProjects\A14.X\act14.asm
+                PRINCIPAL   0x00001e    program     static C:\Users\minel\MPLABXProjects\A14.X\act14.asm
+                INT_Timer   0x000021    program     static C:\Users\minel\MPLABXProjects\A14.X\act14.asm
+                     SIGO   0x00002e    program     static C:\Users\minel\MPLABXProjects\A14.X\act14.asm
+                 LECTURAS   0x000036    program     static C:\Users\minel\MPLABXProjects\A14.X\act14.asm
+                    FLAG1   0x000053    program     static C:\Users\minel\MPLABXProjects\A14.X\act14.asm
+                    FLAG2   0x000058    program     static C:\Users\minel\MPLABXProjects\A14.X\act14.asm
+                    FLAG3   0x00005d    program     static C:\Users\minel\MPLABXProjects\A14.X\act14.asm
+                    FLAG4   0x000062    program     static C:\Users\minel\MPLABXProjects\A14.X\act14.asm
+                    FLAG5   0x000067    program     static C:\Users\minel\MPLABXProjects\A14.X\act14.asm
+                    FLAG6   0x00006c    program     static C:\Users\minel\MPLABXProjects\A14.X\act14.asm
+                    FLAG7   0x000071    program     static C:\Users\minel\MPLABXProjects\A14.X\act14.asm
+                    FLAG8   0x000076    program     static C:\Users\minel\MPLABXProjects\A14.X\act14.asm
+                      FIN   0x00007b    program     static C:\Users\minel\MPLABXProjects\A14.X\act14.asm
+           MEDIDAFILTRADA   0x00007c    program     static C:\Users\minel\MPLABXProjects\A14.X\act14.asm
+              CONTROLADOR   0x000093    program     static C:\Users\minel\MPLABXProjects\A14.X\act14.asm
+                  GUARDAR   0x0000b5    program     static C:\Users\minel\MPLABXProjects\A14.X\act14.asm
+                  TERMINA   0x0000c1    program     static C:\Users\minel\MPLABXProjects\A14.X\act14.asm
+               MULTIPLICA   0x0000c9    program     static C:\Users\minel\MPLABXProjects\A14.X\act14.asm
+                    BUCLE   0x0000d1    program     static C:\Users\minel\MPLABXProjects\A14.X\act14.asm
+
+

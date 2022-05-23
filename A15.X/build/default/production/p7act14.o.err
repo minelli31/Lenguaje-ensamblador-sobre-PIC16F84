@@ -1,0 +1,17 @@
+Warning[205] C:\USERS\MINEL\MPLABXPROJECTS\P7_ACT14\P7ACT14.ASM 2 : Found directive in column 1. (__CONFIG)
+Warning[205] C:\USERS\MINEL\MPLABXPROJECTS\P7_ACT14\P7ACT14.ASM 3 : Found directive in column 1. (list)
+Warning[205] C:\USERS\MINEL\MPLABXPROJECTS\P7_ACT14\P7ACT14.ASM 4 : Found directive in column 1. (include)
+Warning[205] C:\USERS\MINEL\MPLABXPROJECTS\P7_ACT14\P7ACT14.ASM 6 : Found directive in column 1. (ORG)
+Warning[205] C:\USERS\MINEL\MPLABXPROJECTS\P7_ACT14\P7ACT14.ASM 7 : Found directive in column 1. (DE)
+Message[302] C:\USERS\MINEL\MPLABXPROJECTS\P7_ACT14\P7ACT14.ASM 45 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\MINEL\MPLABXPROJECTS\P7_ACT14\P7ACT14.ASM 47 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\MINEL\MPLABXPROJECTS\P7_ACT14\P7ACT14.ASM 50 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[219] C:\USERS\MINEL\MPLABXPROJECTS\P7_ACT14\P7ACT14.ASM 127 : Invalid RAM location specified.
+Message[313] C:\USERS\MINEL\MPLABXPROJECTS\P7_ACT14\P7ACT14.ASM 266 : CBLOCK constants will start with a value of 0.
+Message[302] C:\USERS\MINEL\MPLABXPROJECTS\P7_ACT14\P7ACT14.ASM 275 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\MINEL\MPLABXPROJECTS\P7_ACT14\P7ACT14.ASM 277 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\MINEL\MPLABXPROJECTS\P7_ACT14\P7ACT14.ASM 279 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\MINEL\MPLABXPROJECTS\P7_ACT14\P7ACT14.ASM 280 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\MINEL\MPLABXPROJECTS\P7_ACT14\P7ACT14.ASM 282 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\MINEL\MPLABXPROJECTS\P7_ACT14\P7ACT14.ASM 284 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\MINEL\MPLABXPROJECTS\P7_ACT14\P7ACT14.ASM 285 : Register in operand not in bank 0.  Ensure that bank bits are correct.

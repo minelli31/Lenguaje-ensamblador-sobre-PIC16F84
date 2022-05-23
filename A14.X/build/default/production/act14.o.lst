@@ -1,0 +1,576 @@
+MPASM 5.67                         ACT14.ASM   5-4-2021  20:05:22         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001 
+Warning[205]: Found directive in column 1. (__CONFIG)
+2007   3FF1           00002 __CONFIG   _CP_OFF &  _WDT_OFF & _PWRTE_ON & _XT_OSC
+Warning[205]: Found directive in column 1. (list)
+                      00003 list     p=16f84a
+Warning[205]: Found directive in column 1. (include)
+                      00004 include "p16f84a.inc"
+                      00001         LIST
+                      00002 
+                      00003 ;==========================================================================
+                      00004 ; Build date : Mar 21 2016
+                      00005 ;  MPASM PIC16F84A processor include
+                      00006 ; 
+                      00007 ;  (c) Copyright 1999-2016 Microchip Technology, All rights reserved
+                      00008 ;==========================================================================
+                      00009 
+                      00209         LIST
+                      00005 
+Warning[205]: Found directive in column 1. (ORG)
+2100                  00006 ORG         0x2100              ; Direccion 0 de la EEPROM
+Warning[205]: Found directive in column 1. (DE)
+2100   0000           00007 DE          0x00                ; Telemetria a cero.
+Warning[205]: Found directive in column 1. (CBLOCK)
+                      00008 CBLOCK 0x0C         ;Bloque de variables asignadas a partir de 0x0C
+  0000000C            00009     Dato1     
+  0000000D            00010     Dato2     
+  0000000E            00011     DH             ; byte alto
+  0000000F            00012     DL             ; byte bajo
+  00000010            00013     NumA          ;Numero A
+  00000011            00014     NumB          ;Numero B
+  00000012            00015     ResultAxB         ; Resultado de NumA x NumB
+  00000013            00016     Conta             ; Contador
+  00000014            00017     RegW              ; Registro W
+  00000015            00018     RegS              ; Registro STATUS
+  00000016            00019     FlagL             ; Flag Lecturas
+  00000017            00020     n1            ; 1ªLectura
+  00000018            00021     n2            ; 2ªLectura
+  00000019            00022     n3            ; 3ªLectura
+  0000001A            00023     n4            ; 4ªLectura
+  0000001B            00024     n5            ; 5ªLectura
+  0000001C            00025     n6            ; 6ªLectura
+  0000001D            00026     n7            ; 7ªLectura
+  0000001E            00027     n8            ; 8ªLectura
+  0000001F            00028     Err           ; Error
+  00000020            00029     ErrAnt            ; Error Anterior
+  00000021            00030     Integ             ; Integral
+  00000022            00031     Deriv             ; Derivada
+  00000023            00032     Control           ; Control
+  00000024            00033     Referen           ; Referencia
+  00000025            00034     MedFil            ; Medida filtrada
+  00000026            00035     kp            ; Kp
+  00000027            00036     ki            ; Ki
+  00000028            00037     kd            ; Kd
+MPASM 5.67                         ACT14.ASM   5-4-2021  20:05:22         PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+Warning[205]: Found directive in column 1. (ENDC)
+                      00038 ENDC  
+                      00039 ;------------------------------------------------------------------
+0000                  00040         org         0x00
+0000   2805           00041         GOTO    INICIO
+0004                  00042         org         0x04
+0004   2821           00043         GOTO    INT_Timer
+0005                  00044 INICIO 
+0005   1683           00045         BSF             STATUS,5        ; Banco 1 (RP0)
+0006   0080           00046         MOVWF   b'00000000'
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0007   0086           00047         MOVWF   TRISB           ; Puerto B como salida
+0008   009F           00048         MOVWF   b'00011111'
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0009   0085           00049         MOVWF   TRISA           ; Puerto A como entrada
+000A   0103           00050         CLRW                    ; Borro W
+000B   3007           00051         MOVLW   0x07            ; Cargo W con 00000111 (PSAx,1,1,1)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+000C   0081           00052         MOVWF   OPTION_REG      ; Divisor = 256
+000D   1283           00053         BCF             STATUS,5        ; Banco 0 (RP0)
+000E   3088           00054         MOVLW   0x88            ; Cargo W con 10101000
+000F   008B           00055         MOVWF   INTCON          ; Habilitamos GIE y RBIE
+0010   0186           00056         CLRF    PORTB           ; Borro PORTB
+0011   0185           00057         CLRF    PORTA           ; Borro PORTA
+0012   0193           00058         CLRF    Conta           ; Borro Conta
+0013   018C           00059         CLRF    Dato1           ; Borramos
+0014   018D           00060         CLRF    Dato2           ; Borramos
+0015   0190           00061         CLRF    NumA            ; Borramos
+0016   0191           00062         CLRF    NumB            ; Borramos
+0017   0192           00063         CLRF    ResultAxB       ; Borramos
+0018   300A           00064         MOVLW   0xA             ; 10cs = 0,1s
+0019   0093           00065         MOVWF   Conta    
+001A   30D9           00066         MOVLW   0xD9            ; Cargo W con 0x00-0x27
+001B   0081           00067         MOVWF   TMR0            ; Lo paso a TMR0
+001C   3001           00068         MOVLW   0x1             ; Cargo W con 1
+001D   0096           00069         MOVWF   FlagL           ; Inicializo FlagL
+001E                  00070 PRINCIPAL
+                      00071         ; Pasamos el cálculo al actuador (PORTA)
+001E   0823           00072         MOVF    Control,W       ; W = Control
+001F   0085           00073         MOVWF   PORTA           ; Lo pasamos a PORTA
+0020   281E           00074         GOTO    PRINCIPAL
+                      00075 ;Interrupcion
+                      00076 ;0,01S = 10MS = 1CS --> LEER PORTB 
+                      00077 ;0,1S = 100MS = 10CS -> CALC MED.F -> CALC CONTROL -> GUARDAR DATO 
+                      00078 
+0021                  00079 INT_Timer
+0021   138B           00080         BCF             INTCON,GIE      ; Deshabilitar interrupciones
+0022   0094           00081         MOVWF   RegW            ; Guardamos W
+0023   0E03           00082         SWAPF   STATUS,W        ; Invertimos nibbles
+0024   0095           00083         MOVWF   RegS            ; Guardamos estado
+0025   2036           00084         CALL    LECTURAS        ; Leo puerto B
+0026   0B93           00085         DECFSZ  Conta,F         ; Conta -=1
+0027   282E           00086         GOTO    SIGO            ; No hemos acabado
+MPASM 5.67                         ACT14.ASM   5-4-2021  20:05:22         PAGE  3
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0028   300A           00087         MOVLW   0xA             ; 10cs = 0,1s
+0029   0093           00088         MOVWF   Conta           ; Conta = 0xA
+002A   207C           00089         CALL    MEDIDAFILTRADA  ; Calculo Medida filtrada
+002B   2093           00090         CALL    CONTROLADOR     ; Calculo Control
+002C   0823           00091         MOVF    Control,W       ; W = Control
+002D   20B5           00092         CALL    GUARDAR         ; Guardo telemetrias
+002E                  00093 SIGO
+002E   30D9           00094         MOVLW   0xD9            ; Cargo W con 0x00-0x27
+002F   0081           00095         MOVWF   TMR0            ; Lo paso a TMR0
+0030   110B           00096         BCF             INTCON,T0IF     ; Limpiar bandera de interrupcion
+0031   0E15           00097         SWAPF   RegS,W          ; Invertimos nibbles de RegS
+0032   0083           00098         MOVWF   STATUS          ; Restauramos estado
+0033   0E14           00099         SWAPF   RegW,W          ; Restauramos W
+0034   178B           00100         BSF             INTCON,GIE      ; Habilitar interrupciones
+0035   0009           00101         RETFIE                  ; Vuelvo de la interrupcion
+                      00102 
+                      00103 ;Tomar lecturas
+0036                  00104 LECTURAS
+0036   0801           00105         MOVF    1,W             ;
+0037   0216           00106         SUBWF   FlagL,W         ;
+0038   1903           00107         BTFSC   STATUS,Z        ;
+0039   2853           00108         GOTO    FLAG1           ; 1ªLectura
+003A   0802           00109         MOVF    2,W             ;
+003B   0216           00110         SUBWF   FlagL,W         ;
+003C   1903           00111         BTFSC   STATUS,Z        ;
+003D   2858           00112         GOTO    FLAG2           ; 2ªLectura
+003E   0803           00113         MOVF    3,W             ;
+003F   0216           00114         SUBWF   FlagL,W         ;
+0040   1903           00115         BTFSC   STATUS,Z        ;
+0041   285D           00116         GOTO    FLAG3           ; 3ªLectura
+0042   0804           00117         MOVF    4,W             ;
+0043   0216           00118         SUBWF   FlagL,W         ;
+0044   1903           00119         BTFSC   STATUS,Z        ;
+0045   2862           00120         GOTO    FLAG4           ; 4ªLectura
+0046   0805           00121         MOVF    5,W             ;
+0047   0216           00122         SUBWF   FlagL,W         ;
+0048   1903           00123         BTFSC   STATUS,Z        ;
+0049   2867           00124         GOTO    FLAG5           ; 5ªLectura
+004A   0806           00125         MOVF    6,W             ;
+004B   0216           00126         SUBWF   FlagL,W         ;
+004C   1903           00127         BTFSC   STATUS,Z        ;
+004D   286C           00128         GOTO    FLAG6           ; 6ªLectura
+Warning[219]: Invalid RAM location specified.
+004E   0807           00129         MOVF    7,W             ;
+004F   0216           00130         SUBWF   FlagL,W         ;
+0050   1903           00131         BTFSC   STATUS,Z        ;
+0051   2871           00132         GOTO    FLAG7           ; 7ªLectura
+0052   2876           00133         GOTO    FLAG8           ; 8ªLectura
+0053                  00134 FLAG1
+0053   0806           00135         MOVF    PORTB,W         ;
+0054   3C00           00136         SUBLW   0x00000000      ; Complemento a 2
+0055   0097           00137         MOVWF   n1              ; 1ª lectuta
+0056   0A96           00138         INCF    FlagL,1         ; FlagL +=1
+MPASM 5.67                         ACT14.ASM   5-4-2021  20:05:22         PAGE  4
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0057   287B           00139         GOTO    FIN             ;
+0058                  00140 FLAG2
+0058   0806           00141         MOVF    PORTB,W         ;
+0059   3C00           00142         SUBLW   0x00000000      ; Complemento a 2
+005A   0098           00143         MOVWF   n2              ; 2ª lectuta
+005B   0A96           00144         INCF    FlagL,1         ; FlagL +=1
+005C   287B           00145         GOTO    FIN             ;
+005D                  00146 FLAG3
+005D   0806           00147         MOVF    PORTB,W         ;
+005E   3C00           00148         SUBLW   0x00000000      ; Complemento a 2
+005F   0099           00149         MOVWF   n3              ; 3ª lectuta
+0060   0A96           00150         INCF    FlagL,1         ; FlagL +=1
+0061   287B           00151         GOTO    FIN             ;
+0062                  00152 FLAG4
+0062   0806           00153         MOVF    PORTB,W         ;
+0063   3C00           00154         SUBLW   0x00000000      ; Complemento a 2
+0064   009A           00155         MOVWF   n4              ; 4ª lectuta
+0065   0A96           00156         INCF    FlagL,1         ; FlagL +=1
+0066   287B           00157         GOTO    FIN             ;            
+0067                  00158 FLAG5
+0067   0806           00159         MOVF    PORTB,W         ;
+0068   3C00           00160         SUBLW   0x00000000      ; Complemento a 2
+0069   009B           00161         MOVWF   n5              ; 5ª lectuta
+006A   0A96           00162         INCF    FlagL,1         ; FlagL +=1
+006B   287B           00163         GOTO    FIN             ;
+006C                  00164 FLAG6
+006C   0806           00165         MOVF    PORTB,W         ;
+006D   3C00           00166         SUBLW   0x00000000      ; Complemento a 2
+006E   009C           00167         MOVWF   n6              ; 6ª lectuta
+006F   0A96           00168         INCF    FlagL,1         ; FlagL +=1
+0070   287B           00169         GOTO    FIN             ;
+0071                  00170 FLAG7
+0071   0806           00171         MOVF    PORTB,W         ;
+0072   3C00           00172         SUBLW   0x00000000      ; Complemento a 2
+0073   009D           00173         MOVWF   n7              ; 7ª lectuta
+0074   0A96           00174         INCF    FlagL,1         ; FlagL +=1
+0075   287B           00175         GOTO    FIN             ;
+0076                  00176 FLAG8
+0076   0806           00177         MOVF    PORTB,W         ;
+0077   3C00           00178         SUBLW   0x00000000      ; Complemento a 2
+0078   009E           00179         MOVWF   n8              ; 8ª lectuta
+0079   0801           00180         MOVF    1,W             ; Reinicio flag
+007A   0096           00181         MOVWF   FlagL           ;
+007B                  00182 FIN
+007B   0008           00183         RETURN                  ; fin subrutina
+                      00184 
+                      00185 ;Calcular el dato MedidaFiltrada
+                      00186 
+007C                  00187 MEDIDAFILTRADA
+                      00188         ;(n1+n2)/2
+007C   0817           00189         MOVF    n1,W            ; W = n1
+007D   0798           00190         ADDWF   n2,1            ; n1+n2 y guardo en n2
+007E   0C98           00191         RRF             n2,1            ; roto a dcha y guardo en n2
+MPASM 5.67                         ACT14.ASM   5-4-2021  20:05:22         PAGE  5
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00192         ;(n3+n4)/2
+007F   0819           00193         MOVF    n3,W            ; W = n3
+0080   079A           00194         ADDWF   n4,1            ; n3+n4 y guardo en n4
+0081   0C9A           00195         RRF             n4,1            ; roto a dcha y guardo en n4
+                      00196         ;(n5+n6)/2
+0082   081B           00197         MOVF    n5,W            ; W = n5
+0083   079C           00198         ADDWF   n6,1            ; n5+n6 y guardo en n6
+0084   0C9C           00199         RRF             n6,1            ; roto a dcha y guardo en n6
+                      00200         ;(n7+n8)/2
+0085   081D           00201         MOVF    n7,W            ; W = n7
+0086   079E           00202         ADDWF   n8,1            ; n7+n8 y guardo en n8
+0087   0C9E           00203         RRF             n8,1            ; roto a dcha y guardo en n8
+                      00204         ;(n2+n4)/2
+0088   0818           00205         MOVF    n2,W            ; W = n2
+0089   079A           00206         ADDWF   n4,1            ; n2+n4 y guardo en n4
+008A   0C9A           00207         RRF             n4,1            ; roto a dcha y guardo en n4
+                      00208         ;(n6+n8)/2
+008B   081C           00209         MOVF    n6,W            ; W = n6
+008C   079E           00210         ADDWF   n8,1            ; n6+n8 y guardo en n8
+008D   0C9E           00211         RRF             n8,1            ; roto a dcha y guardo en n8
+                      00212         ;(n4+n8)/2
+008E   081A           00213         MOVF    n4,W            ; W = n4
+008F   079E           00214         ADDWF   n8,1            ; n4+n8 y guardo en n8
+0090   0C1E           00215         RRF             n8,0            ; roto a dcha y guardo en W
+0091   00A5           00216         MOVWF   MedFil          ; Guardo la Medida Filtrada
+0092   0008           00217         RETURN                  ; fin subrutina
+                      00218 
+                      00219 ;Calcular la accion de control (controlador PID)
+                      00220 ;ErrAnterior=Err
+                      00221 ;Err= Referencia - MedidaFiltrada
+                      00222 ;Integral= Integral + Err
+                      00223 ;Derivativa= Err- ErrAnterior
+                      00224 ;Control= Kp*Err+Ki*Integral+Kd*Derivativa
+0093                  00225 CONTROLADOR
+                      00226         ; Valores regulacion PID
+0093   3001           00227         MOVLW   0x1             ; w=1
+0094   00A6           00228         MOVWF   kp              ; Kp=1
+0095   3001           00229         MOVLW   0x1             ; w=1
+0096   00A7           00230         MOVWF   ki              ; Ki=1
+0097   3001           00231         MOVLW   0x1             ; w=1
+0098   00A8           00232         MOVWF   kd              ; Kd=1
+                      00233         ; Err = Referencia - MedidaFiltrada
+0099   081F           00234         MOVF    Err,W           ; W = Err
+009A   00A0           00235         MOVWF   ErrAnt          ; ErrAnt = Err
+009B   0825           00236         MOVF    MedFil,W        ; W = MedFil
+009C   0224           00237         SUBWF   Referen,0       ; f - w ? Referen - MedFil
+009D   009F           00238         MOVWF   Err             ; Err = Referen - MedFil
+                      00239         ; Integral = Integral + Err
+009E   07A1           00240         ADDWF   Integ,1         ; Integ += Err
+                      00241         ; Derivativa = Err - ErrAnterior
+009F   0820           00242         MOVF    ErrAnt,W        ; W = ErrAnt
+00A0   021F           00243         SUBWF   Err,0           ; f - w ? Err - ErrAnt
+00A1   00A2           00244         MOVWF   Deriv           ; Deriv = Err - ErrAnt
+MPASM 5.67                         ACT14.ASM   5-4-2021  20:05:22         PAGE  6
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00245         ; Control = Kp*Err+Ki*Integral+Kd*Derivativa
+00A2   0826           00246         MOVF    kp,W            ; W=Kp
+00A3   008C           00247         MOVWF   Dato1           ; Dato1 = Kp
+00A4   081F           00248         MOVF    Err,W           ; W=Err
+00A5   008D           00249         MOVWF   Dato2           ; Dato2 = Err
+00A6   20C9           00250         CALL    MULTIPLICA      ; Multiplico
+00A7   07A3           00251         ADDWF   Control,1       ; Control = Kp*Err
+00A8   0827           00252         MOVF    ki,W            ; W=Ki
+00A9   008C           00253         MOVWF   Dato1           ; Dato1 = Ki
+00AA   0821           00254         MOVF    Integ,W         ; W=Integ
+00AB   008D           00255         MOVWF   Dato2           ; Dato2 = Integ
+00AC   20C9           00256         CALL    MULTIPLICA      ; Multiplico
+00AD   07A3           00257         ADDWF   Control,1       ; Control = Kp*Err+Ki*Integral
+00AE   0828           00258         MOVF    kd,W            ; W=Kd
+00AF   008C           00259         MOVWF   Dato1           ; Dato1 = Kd
+00B0   0822           00260         MOVF    Deriv,W         ; W=Deriv
+00B1   008D           00261         MOVWF   Dato2           ; Dato2 = Deriv
+00B2   20C9           00262         CALL    MULTIPLICA      ; Multiplico
+00B3   07A3           00263         ADDWF   Control,1       ; Control = Kp*Err+Ki*Inte+Kd*Deriv
+00B4   0008           00264         RETURN                  ; fin subrutina
+                      00265 
+                      00266 ;Guardar telemetrias
+00B5                  00267 GUARDAR
+                      00268         CBLOCK
+  00000029            00269         GuardaINTCON
+                      00270         ENDC
+00B5   1283           00271         BCF             STATUS,5        ; Banco 0
+00B6   0088           00272         MOVWF   EEDATA          ; El byte a escribir
+00B7   080B           00273         MOVF    INTCON,W        ; Valor anterior de INTCON
+00B8   00A9           00274         MOVWF   GuardaINTCON
+00B9   1683           00275         BSF             STATUS,5        ; Banco 1
+00BA   138B           00276         BCF             INTCON,GIE      ; Deshabilita interrupciones
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+00BB   1508           00277         BSF             EECON1,WREN     ; Habilita escritura
+00BC   3055           00278         MOVLW   0x55
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+00BD   0089           00279         MOVWF   EECON2
+00BE   30AA           00280         MOVLW   0xAA
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+00BF   0089           00281         MOVWF   EECON2
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+00C0   1488           00282         BSF             EECON1,WR       ; Inicia la escritura.
+00C1                  00283 TERMINA
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+00C1   1888           00284         BTFSC   EECON1,WR       ; ¿Fin de la escritura?
+00C2   28C1           00285         GOTO    TERMINA         ; No
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+00C3   1108           00286         BCF             EECON1,WREN     ; No escritura en EEPROM
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+00C4   1208           00287         BCF             EECON1,EEIF     ; Limpia flag
+00C5   1283           00288         BCF             STATUS,5        ; Banco 0
+00C6   0829           00289         MOVF    GuardaINTCON,W  ; Restaura INTCON
+00C7   008B           00290         MOVWF   INTCON
+MPASM 5.67                         ACT14.ASM   5-4-2021  20:05:22         PAGE  7
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+00C8   0008           00291         RETURN                  ; fin subrutina
+                      00292 ;Multiplicacion
+00C9                  00293 MULTIPLICA
+00C9   018E           00294         CLRF    DH
+00CA   018F           00295         CLRF    DL
+00CB   080C           00296         MOVF    Dato1,W         ; W = multiplicador
+00CC   1903           00297         BTFSC   STATUS,Z        ; Salta si Z=1
+00CD   0008           00298         RETURN                  ; Z=0 hemos terminado
+00CE   080D           00299         MOVF    Dato2,W         ; W = multiplicador
+00CF   1903           00300         BTFSC   STATUS,Z        ; Salta si Z=1
+00D0   0008           00301         RETURN                  ; Z=0 hemos terminado
+00D1                  00302 BUCLE
+00D1   080F           00303         MOVF    DL,W            ; W=DL
+00D2   070C           00304         ADDWF   Dato1,W         ; W += multiplicando
+00D3   008F           00305         MOVWF   DL              ; DL=W
+00D4   1803           00306         BTFSC   STATUS,C        ; Salta si C=0
+00D5   0A8E           00307         INCF    DH,F            ;
+00D6   0B8D           00308         DECFSZ  Dato2,F         ; multiplicador-1
+00D7   28D1           00309         GOTO    BUCLE           ; no hemos acabado
+00D8   008F           00310         MOVWF   DL              ; DL=W
+00D9   0092           00311         MOVWF   ResultAxB       ; MULTIPLICA=W
+                      00312         ;MOVWF     PORTB                ; Puerto B=W
+00DA   018D           00313         CLRF    Dato2
+00DB   0008           00314         RETURN                  ; fin subrutina
+                      00315 
+                      00316         END            ; fin
+MPASM 5.67                         ACT14.ASM   5-4-2021  20:05:22         PAGE  8
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+BUCLE                             000000D1
+C                                 00000000
+CONTROLADOR                       00000093
+Conta                             00000013
+Control                           00000023
+DC                                00000001
+DH                                0000000E
+DL                                0000000F
+Dato1                             0000000C
+Dato2                             0000000D
+Deriv                             00000022
+EEADR                             00000009
+EECON1                            00000088
+EECON2                            00000089
+EEDATA                            00000008
+EEIE                              00000006
+EEIF                              00000004
+Err                               0000001F
+ErrAnt                            00000020
+F                                 00000001
+FIN                               0000007B
+FLAG1                             00000053
+FLAG2                             00000058
+FLAG3                             0000005D
+FLAG4                             00000062
+FLAG5                             00000067
+FLAG6                             0000006C
+FLAG7                             00000071
+FLAG8                             00000076
+FSR                               00000004
+FlagL                             00000016
+GIE                               00000007
+GUARDAR                           000000B5
+GuardaINTCON                      00000029
+INDF                              00000000
+INICIO                            00000005
+INTCON                            0000000B
+INTE                              00000004
+INTEDG                            00000006
+INTF                              00000001
+INT_Timer                         00000021
+IRP                               00000007
+Integ                             00000021
+LECTURAS                          00000036
+MEDIDAFILTRADA                    0000007C
+MULTIPLICA                        000000C9
+MedFil                            00000025
+NOT_PD                            00000003
+NOT_RBPU                          00000007
+NOT_TO                            00000004
+NumA                              00000010
+NumB                              00000011
+OPTION_REG                        00000081
+MPASM 5.67                         ACT14.ASM   5-4-2021  20:05:22         PAGE  9
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+PCL                               00000002
+PCLATH                            0000000A
+PORTA                             00000005
+PORTB                             00000006
+PRINCIPAL                         0000001E
+PS0                               00000000
+PS1                               00000001
+PS2                               00000002
+PSA                               00000003
+RA0                               00000000
+RA1                               00000001
+RA2                               00000002
+RA3                               00000003
+RA4                               00000004
+RB0                               00000000
+RB1                               00000001
+RB2                               00000002
+RB3                               00000003
+RB4                               00000004
+RB5                               00000005
+RB6                               00000006
+RB7                               00000007
+RBIE                              00000003
+RBIF                              00000000
+RD                                00000000
+RP0                               00000005
+RP1                               00000006
+Referen                           00000024
+RegS                              00000015
+RegW                              00000014
+ResultAxB                         00000012
+SIGO                              0000002E
+STATUS                            00000003
+T0CS                              00000005
+T0IE                              00000005
+T0IF                              00000002
+T0SE                              00000004
+TERMINA                           000000C1
+TMR0                              00000001
+TMR0IE                            00000005
+TMR0IF                            00000002
+TRISA                             00000085
+TRISA0                            00000000
+TRISA1                            00000001
+TRISA2                            00000002
+TRISA3                            00000003
+TRISA4                            00000004
+TRISB                             00000086
+TRISB0                            00000000
+TRISB1                            00000001
+TRISB2                            00000002
+TRISB3                            00000003
+TRISB4                            00000004
+MPASM 5.67                         ACT14.ASM   5-4-2021  20:05:22         PAGE 10
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+TRISB5                            00000005
+TRISB6                            00000006
+TRISB7                            00000007
+W                                 00000000
+WR                                00000001
+WREN                              00000002
+WRERR                             00000003
+Z                                 00000002
+_CONFIG                           00002007
+_CP_OFF                           00003FFF
+_CP_ON                            0000000F
+_DEVID1                           00002006
+_FOSC_EXTRC                       00003FFF
+_FOSC_HS                          00003FFE
+_FOSC_LP                          00003FFC
+_FOSC_XT                          00003FFD
+_HS_OSC                           00003FFE
+_IDLOC0                           00002000
+_IDLOC1                           00002001
+_IDLOC2                           00002002
+_IDLOC3                           00002003
+_LP_OSC                           00003FFC
+_PWRTE_OFF                        00003FFF
+_PWRTE_ON                         00003FF7
+_RC_OSC                           00003FFF
+_WDTE_OFF                         00003FFB
+_WDTE_ON                          00003FFF
+_WDT_OFF                          00003FFB
+_WDT_ON                           00003FFF
+_XT_OSC                           00003FFD
+__16F84A                          00000001
+kd                                00000028
+ki                                00000027
+kp                                00000026
+n1                                00000017
+n2                                00000018
+n3                                00000019
+n4                                0000001A
+n5                                0000001B
+n6                                0000001C
+n7                                0000001D
+n8                                0000001E
+MPASM 5.67                         ACT14.ASM   5-4-2021  20:05:22         PAGE 11
+
+
+MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
+
+
+0000 : X---XXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0040 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0080 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+00C0 : XXXXXXXXXXXXXXXX XXXXXXXXXXXX---- ---------------- ----------------
+2000 : -------X-------- ---------------- ---------------- ----------------
+2100 : X--------------- ---------------- ---------------- ----------------
+
+All other memory blocks unused.
+
+Program Memory Words Used:   217
+Program Memory Words Free:   807
+
+
+Errors   :     0
+Warnings :     8 reported,     0 suppressed
+Messages :    10 reported,     0 suppressed
+
+

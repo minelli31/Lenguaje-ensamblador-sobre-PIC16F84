@@ -1,0 +1,18 @@
+Warning[205] C:\USERS\MINEL\MPLABXPROJECTS\A14.X\ACT14.ASM 2 : Found directive in column 1. (__CONFIG)
+Warning[205] C:\USERS\MINEL\MPLABXPROJECTS\A14.X\ACT14.ASM 3 : Found directive in column 1. (list)
+Warning[205] C:\USERS\MINEL\MPLABXPROJECTS\A14.X\ACT14.ASM 4 : Found directive in column 1. (include)
+Warning[205] C:\USERS\MINEL\MPLABXPROJECTS\A14.X\ACT14.ASM 6 : Found directive in column 1. (ORG)
+Warning[205] C:\USERS\MINEL\MPLABXPROJECTS\A14.X\ACT14.ASM 7 : Found directive in column 1. (DE)
+Warning[205] C:\USERS\MINEL\MPLABXPROJECTS\A14.X\ACT14.ASM 8 : Found directive in column 1. (CBLOCK)
+Warning[205] C:\USERS\MINEL\MPLABXPROJECTS\A14.X\ACT14.ASM 38 : Found directive in column 1. (ENDC)
+Message[302] C:\USERS\MINEL\MPLABXPROJECTS\A14.X\ACT14.ASM 47 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\MINEL\MPLABXPROJECTS\A14.X\ACT14.ASM 49 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\MINEL\MPLABXPROJECTS\A14.X\ACT14.ASM 52 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[219] C:\USERS\MINEL\MPLABXPROJECTS\A14.X\ACT14.ASM 129 : Invalid RAM location specified.
+Message[302] C:\USERS\MINEL\MPLABXPROJECTS\A14.X\ACT14.ASM 277 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\MINEL\MPLABXPROJECTS\A14.X\ACT14.ASM 279 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\MINEL\MPLABXPROJECTS\A14.X\ACT14.ASM 281 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\MINEL\MPLABXPROJECTS\A14.X\ACT14.ASM 282 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\MINEL\MPLABXPROJECTS\A14.X\ACT14.ASM 284 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\MINEL\MPLABXPROJECTS\A14.X\ACT14.ASM 286 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\MINEL\MPLABXPROJECTS\A14.X\ACT14.ASM 287 : Register in operand not in bank 0.  Ensure that bank bits are correct.
