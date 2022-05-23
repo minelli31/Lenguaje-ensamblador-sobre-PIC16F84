@@ -1,0 +1,8 @@
+Warning[207] C:\USERS\MINEL\MPLABXPROJECTS\2\ACT2.ASM 9 : Found label after column 1. (NumA)
+Warning[207] C:\USERS\MINEL\MPLABXPROJECTS\2\ACT2.ASM 10 : Found label after column 1. (NumB)
+Warning[207] C:\USERS\MINEL\MPLABXPROJECTS\2\ACT2.ASM 11 : Found label after column 1. (Mayor)
+Warning[207] C:\USERS\MINEL\MPLABXPROJECTS\2\ACT2.ASM 15 : Found label after column 1. (Inicio)
+Warning[207] C:\USERS\MINEL\MPLABXPROJECTS\2\ACT2.ASM 33 : Found label after column 1. (A_menor_B)
+Warning[207] C:\USERS\MINEL\MPLABXPROJECTS\2\ACT2.ASM 36 : Found label after column 1. (A_mayor_B)
+Warning[207] C:\USERS\MINEL\MPLABXPROJECTS\2\ACT2.ASM 39 : Found label after column 1. (A_igual_B)
+Warning[207] C:\USERS\MINEL\MPLABXPROJECTS\2\ACT2.ASM 40 : Found label after column 1. (Stop)

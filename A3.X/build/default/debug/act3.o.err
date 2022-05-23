@@ -1,0 +1,5 @@
+Warning[207] C:\USERS\MINEL\MPLABXPROJECTS\P3.X\ACT3.ASM 7 : Found label after column 1. (START)
+Message[302] C:\USERS\MINEL\MPLABXPROJECTS\P3.X\ACT3.ASM 11 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\MINEL\MPLABXPROJECTS\P3.X\ACT3.ASM 13 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[207] C:\USERS\MINEL\MPLABXPROJECTS\P3.X\ACT3.ASM 15 : Found label after column 1. (BUCLE)
+Warning[207] C:\USERS\MINEL\MPLABXPROJECTS\P3.X\ACT3.ASM 23 : Found label after column 1. (DORMIR)
