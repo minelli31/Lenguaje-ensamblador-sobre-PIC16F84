@@ -1,0 +1,192 @@
+MPASM 5.67                          ACT1.ASM   5-3-2021  18:29:53         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001     ;Para realizar la comparacion restamos los dos número (A-B).
+                      00002     ; Si al realizar la resta los dos números son iguales el resultado será cero, activándose el bit Z d
+                            el registro de
+                      00003     ; Estado.
+                      00004     ; Si al realizar la resta (suma del complemento a 2 de B) se produce un bit de acarreo el resultado 
+                            es positivo
+                      00005     ; (A> B). Ejemplo: 3-2 = 0011 + 1110 = 1 0001.
+                      00006     ; Si no se produce acarreo el resultado es negativo (A<B). Ejemplo: 2-3 = 0010 + 1101 = 0 1111.
+                      00007     list p=16F84A
+                      00008     include <P16F84A.INC>
+                      00001         LIST
+                      00002 
+                      00003 ;==========================================================================
+                      00004 ; Build date : Mar 21 2016
+                      00005 ;  MPASM PIC16F84A processor include
+                      00006 ; 
+                      00007 ;  (c) Copyright 1999-2016 Microchip Technology, All rights reserved
+                      00008 ;==========================================================================
+                      00009 
+                      00209         LIST
+Warning[207]: Found label after column 1. (NumA)
+  0000000C            00009     NumA equ 0x0C ;Variable del número A
+Warning[207]: Found label after column 1. (NumB)
+  0000000D            00010     NumB equ 0x0D ;Variable del número B
+Warning[207]: Found label after column 1. (Mayor)
+  0000000E            00011     Mayor equ 0x0E ;Variable que almacenará el mayor de los números
+0000                  00012     org 0x00 ;Vector de reset
+0000   2805           00013         goto Inicio ;Salto incondicional al principio del programa
+0005                  00014     org 0x05 ;Vector de interrupcion
+Warning[207]: Found label after column 1. (Inicio)
+0005   080D           00015     Inicio movf NumB,W ;NumB -> W (acumulador)
+0006   020C           00016         subwf NumA,W ;A-W -> W
+0007   1903           00017         btfsc STATUS,Z ;Bit de cero del registro de Estado a 1 0
+0008   2811           00018         goto A_igual_B ;Si
+0009   1803           00019         btfsc STATUS,C ;Bit de acarreo del registro de Estado a 1
+000A   280B           00020         goto A_menor_B ;Si
+Warning[207]: Found label after column 1. (A_menor_B)
+000B   080D           00021     A_menor_B movf NumB,W ;No, A es menor que B
+000C   008E           00022         movwf Mayor ;Suma A más B ;movwf Mayor Suma A más B 
+000D   2812           00023         goto Stop
+Warning[207]: Found label after column 1. (A_mayor_B)
+000E   080C           00024     A_mayor_B movf NumA,W ;No, A es menor que B
+000F   008E           00025         movwf Mayor ;Suma A más B
+0010   2812           00026         goto Stop     ;Fin
+Warning[207]: Found label after column 1. (A_igual_B)
+0011   018E           00027     A_igual_B clrf Mayor ;Pone a 0 el resultado
+Warning[207]: Found label after column 1. (Stop)
+0012   0000           00028     Stop nop ;Poner breakpoint de parada
+                      00029     end ;Fin del programa fuente
+MPASM 5.67                          ACT1.ASM   5-3-2021  18:29:53         PAGE  2
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+A_igual_B                         00000011
+A_mayor_B                         0000000E
+A_menor_B                         0000000B
+C                                 00000000
+DC                                00000001
+EEADR                             00000009
+EECON1                            00000088
+EECON2                            00000089
+EEDATA                            00000008
+EEIE                              00000006
+EEIF                              00000004
+F                                 00000001
+FSR                               00000004
+GIE                               00000007
+INDF                              00000000
+INTCON                            0000000B
+INTE                              00000004
+INTEDG                            00000006
+INTF                              00000001
+IRP                               00000007
+Inicio                            00000005
+Mayor                             0000000E
+NOT_PD                            00000003
+NOT_RBPU                          00000007
+NOT_TO                            00000004
+NumA                              0000000C
+NumB                              0000000D
+OPTION_REG                        00000081
+PCL                               00000002
+PCLATH                            0000000A
+PORTA                             00000005
+PORTB                             00000006
+PS0                               00000000
+PS1                               00000001
+PS2                               00000002
+PSA                               00000003
+RA0                               00000000
+RA1                               00000001
+RA2                               00000002
+RA3                               00000003
+RA4                               00000004
+RB0                               00000000
+RB1                               00000001
+RB2                               00000002
+RB3                               00000003
+RB4                               00000004
+RB5                               00000005
+RB6                               00000006
+RB7                               00000007
+RBIE                              00000003
+RBIF                              00000000
+RD                                00000000
+RP0                               00000005
+MPASM 5.67                          ACT1.ASM   5-3-2021  18:29:53         PAGE  3
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+RP1                               00000006
+STATUS                            00000003
+Stop                              00000012
+T0CS                              00000005
+T0IE                              00000005
+T0IF                              00000002
+T0SE                              00000004
+TMR0                              00000001
+TMR0IE                            00000005
+TMR0IF                            00000002
+TRISA                             00000085
+TRISA0                            00000000
+TRISA1                            00000001
+TRISA2                            00000002
+TRISA3                            00000003
+TRISA4                            00000004
+TRISB                             00000086
+TRISB0                            00000000
+TRISB1                            00000001
+TRISB2                            00000002
+TRISB3                            00000003
+TRISB4                            00000004
+TRISB5                            00000005
+TRISB6                            00000006
+TRISB7                            00000007
+W                                 00000000
+WR                                00000001
+WREN                              00000002
+WRERR                             00000003
+Z                                 00000002
+_CONFIG                           00002007
+_CP_OFF                           00003FFF
+_CP_ON                            0000000F
+_DEVID1                           00002006
+_FOSC_EXTRC                       00003FFF
+_FOSC_HS                          00003FFE
+_FOSC_LP                          00003FFC
+_FOSC_XT                          00003FFD
+_HS_OSC                           00003FFE
+_IDLOC0                           00002000
+_IDLOC1                           00002001
+_IDLOC2                           00002002
+_IDLOC3                           00002003
+_LP_OSC                           00003FFC
+_PWRTE_OFF                        00003FFF
+_PWRTE_ON                         00003FF7
+_RC_OSC                           00003FFF
+_WDTE_OFF                         00003FFB
+_WDTE_ON                          00003FFF
+_WDT_OFF                          00003FFB
+_WDT_ON                           00003FFF
+_XT_OSC                           00003FFD
+__16F84A                          00000001
+MPASM 5.67                          ACT1.ASM   5-3-2021  18:29:53         PAGE  4
+
+
+MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
+
+
+0000 : X----XXXXXXXXXXX XXX------------- ---------------- ----------------
+
+All other memory blocks unused.
+
+Program Memory Words Used:    15
+Program Memory Words Free:  1009
+
+
+Errors   :     0
+Warnings :     8 reported,     0 suppressed
+Messages :     0 reported,     0 suppressed
+
+
